@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cent By Cent</title>
+
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="/styles.css">
+
+  <style>
+    .count {
+      font-size: 5rem;
+      font-weight: bold;
+      color: #333;
+      display: inline-block;
+      transition: transform 0.1s ease-in-out;
+    }
+
+    .animate-instant {
+      transform: scale(1.9) rotate(30deg);
+    }
+
+    .animate-return {
+      transform: scale(1) rotate(0deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Cent By Cent!</h1>
+    <p><em>10 cents at a time, change the world.</em></p>
+
+    <button id="donateButton">Donate Now</button>
+
+    <div id="counter" class="count">0</div>
+  </div>
+
+  <!-- 로컬 경로로 파일 지정 (웹 서버 환경에서) -->
+  <audio id="clickSound" src="sounds/pop.mp3" preload="auto"></audio>
+
+  <script>
+    let clickCount = 0;
+
+    const button = document.getElementById('donateButton');
+    const counter = document.getElementById('counter');
+    const sound = document.getElementById('clickSound');
+
+    button.addEventListener('click', async function () {
+      sound.currentTime = 0;  // 소리 재생 시 처음부터 시작
+      sound.play();  // 소리 재생
+
+      button.style.transform = 'scale(1.2)';
+      button.style.boxShadow = '0 0 20px #00c6ff';
+
+      clickCount++;
+      counter.innerText = clickCount;
+
+      counter.classList.remove('animate-instant', 'animate-return');
+      void counter.offsetWidth;
+      counter.classList.add('animate-instant');
+
+      setTimeout(() => {
+        counter.classList.add('animate-return');
+      }, 50);
+
+      setTimeout(() => {
+        counter.classList.remove('animate-instant');
+        counter.classList.remove('animate-return');
+      }, 150);
+
+      try {
+        await fetch('/donate', { method: 'POST' });
+      } catch (err) {
+        console.error('Donation failed:', err);
+      }
+
+      setTimeout(() => {
+        button.style.transform = 'scale(1)';
+        button.style.boxShadow = '';
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
