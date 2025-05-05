@@ -2,70 +2,33 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>로그인/회원가입</title>
+  <title>로그인/회원가입 버튼</title>
   <style>
-    /* 오른쪽 상단 고정 버튼 스타일 */
     #auth-buttons {
       position: fixed;
       top: 20px;
       right: 20px;
-      z-index: 1000;
+      z-index: 9999;
     }
     #auth-buttons button {
       margin-left: 10px;
-      padding: 8px 14px;
-      font-size: 14px;
+      padding: 10px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
       cursor: pointer;
+      font-size: 14px;
     }
   </style>
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 </head>
 <body>
 
-  <!-- 오른쪽 상단 버튼 -->
+  <!-- 오른쪽 상단 로그인/회원가입 버튼 -->
   <div id="auth-buttons">
     <button id="signupBtn">회원가입</button>
     <button id="loginBtn">로그인</button>
   </div>
-
-  <script>
-    // Firebase 설정
-    const firebaseConfig = {
-      apiKey: "AIzaSyDipOHwbNbQO62SKFcElh1BWteok9-jeHk",
-      authDomain: "login-32539.firebaseapp.com",
-      projectId: "login-32539",
-      storageBucket: "login-32539.firebasestorage.app",
-      messagingSenderId: "515467662644",
-      appId: "1:515467662644:web:8cd025468f9f81901d4161"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    // 로그인/회원가입 버튼 동작
-    document.getElementById("signupBtn").addEventListener("click", () => {
-      const email = prompt("이메일 입력:");
-      const password = prompt("비밀번호 입력:");
-
-      if (email && password) {
-        auth.createUserWithEmailAndPassword(email, password)
-          .then(() => alert("✅ 회원가입 성공!"))
-          .catch(err => alert("❌ " + err.message));
-      }
-    });
-
-    document.getElementById("loginBtn").addEventListener("click", () => {
-      const email = prompt("이메일 입력:");
-      const password = prompt("비밀번호 입력:");
-
-      if (email && password) {
-        auth.signInWithEmailAndPassword(email, password)
-          .then(() => alert("✅ 로그인 성공!"))
-          .catch(err => alert("❌ " + err.message));
-      }
-    });
-  </script>
 
 </body>
 </html>
