@@ -77,3 +77,21 @@ button:active {
     transform: translateY(0);
   }
 }
+
+.login-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 16px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.login-btn:hover {
+  background-color: #0056b3;
+}

@@ -24,6 +24,25 @@
     .animate-return {
       transform: scale(1) rotate(0deg);
     }
+
+    /* 로그인 버튼 위치 및 기본 스타일 */
+    .login-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 9999;
+    }
+
+    .login-btn:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
@@ -36,6 +55,9 @@
     <div id="counter" class="count">0</div>
   </div>
 
+  <!-- 로그인 버튼 추가 -->
+  <button class="login-btn">로그인</button>
+
   <!-- 로컬 경로로 파일 지정 (웹 서버 환경에서) -->
   <audio id="clickSound" src="sounds/pop.mp3" preload="auto"></audio>
 
@@ -47,8 +69,8 @@
     const sound = document.getElementById('clickSound');
 
     button.addEventListener('click', async function () {
-      sound.currentTime = 0;  // 소리 재생 시 처음부터 시작
-      sound.play();  // 소리 재생
+      sound.currentTime = 0;
+      sound.play();
 
       button.style.transform = 'scale(1.2)';
       button.style.boxShadow = '0 0 20px #00c6ff';
@@ -65,8 +87,7 @@
       }, 50);
 
       setTimeout(() => {
-        counter.classList.remove('animate-instant');
-        counter.classList.remove('animate-return');
+        counter.classList.remove('animate-instant', 'animate-return');
       }, 150);
 
       try {
@@ -81,20 +102,5 @@
       }, 1500);
     });
   </script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Cent by Cent</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-  <div id="app"></div>
-
-  <!-- 버튼 UI 스크립트 연결 -->
-  <script src="/js/ui.js"></script>
 </body>
 </html>
