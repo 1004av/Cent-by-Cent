@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cent By Cent</title>
-
+  
   <link rel="icon" href="/images/favicon.png" type="image/x-icon" />
   <link rel="stylesheet" href="/styles.css" />
 
@@ -28,22 +28,13 @@
 </head>
 <body>
   <!-- 로그인 버튼 -->
-  <div class="login-btn-wrapper">
-    <button class="login-btn">
-      <span class="login-btn-inner">로그인</span>
-      <div class="tooltip">
-        <div>로그인 하러 가기</div>
-        <div class="tooltip-arrow"></div>
-      </div>
-    </button>
-  </div>
+  <button id="login-btn">로그인</button>
 
   <div class="container">
     <h1>Welcome to Cent By Cent!</h1>
     <p><em>100 cents at a time, change the world.</em></p>
 
     <button id="donateButton">Donate Now</button>
-
     <div id="counter" class="count">0</div>
   </div>
 
@@ -75,7 +66,8 @@
       }, 50);
 
       setTimeout(() => {
-        counter.classList.remove('animate-instant', 'animate-return');
+        counter.classList.remove('animate-instant');
+        counter.classList.remove('animate-return');
       }, 150);
 
       try {
