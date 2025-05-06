@@ -34,7 +34,7 @@ h1 {
   width: 6.5em;
   height: 2.3em;
   margin: 0.5em;
-  background: black;
+  background: rgb(0, 0, 0);
   color: white;
   border: none;
   border-radius: 0.625em;
@@ -54,7 +54,7 @@ h1 {
 
 .login-btn::after {
   content: "";
-  background: white;
+  background: #84c69b;
   position: absolute;
   z-index: -1;
   left: -20%;
