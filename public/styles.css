@@ -80,13 +80,14 @@ button:active {
 
 .login-btn {
   position: absolute;
-  top: 10px;
-  right: 20px;
-  padding: 8px 16px;
+  top: 10px;        /* 위쪽 여백 줄임 */
+  right: 20px;      /* 오른쪽 여백 */
+  padding: 6px 14px;  /* 높이 조절: 상하 6px, 좌우 14px */
   font-size: 14px;
-  background-color: black;
-  color: white;
+  background-color: #000; /* 검정색 배경 */
+  color: #fff;       /* 흰색 글자 */
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
+
