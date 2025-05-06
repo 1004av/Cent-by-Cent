@@ -79,13 +79,14 @@ button:active {
 }
 
 .login-btn {
-  padding: 10px 30px;
-  font-size: 16px;
-  background-color: #000; /* 검정 배경 */
-  color: #fff;            /* 흰색 글씨 */
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: black;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  display: inline-block;
-  margin-top: 20px;
 }
