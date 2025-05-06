@@ -78,72 +78,16 @@ button:active {
   }
 }
 
-.login-btn-wrapper {
+/* 로그인 버튼 */
+#login-btn {
   position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 9999;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
   font-size: 14px;
-}
-
-.login-btn {
-  position: relative;
-  display: inline-block;
-  background: linear-gradient(to bottom right, #8b5cf6, #ec4899);
-  border-radius: 8px;
-  padding: 2px;
-  color: #1f2937;
-  font-weight: 500;
-  border: none;
   cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.login-btn:hover {
-  color: white;
-}
-
-.login-btn-inner {
-  display: inline-block;
-  background: white;
-  padding: 10px 20px;
-  border-radius: 6px;
-  transition: background 0.3s ease, opacity 0.3s ease;
-}
-
-.login-btn:hover .login-btn-inner {
-  background: transparent;
-}
-
-.tooltip {
-  display: none;
-  position: absolute;
-  top: -48px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: black;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 4px;
-  white-space: nowrap;
-  font-size: 12px;
-  z-index: 10000;
-}
-
-.tooltip-arrow {
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid black;
-}
-
-.login-btn:hover .tooltip {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: 9999;
 }
