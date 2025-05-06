@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cent By Cent</title>
 
-  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="/styles.css" />
 
   <style>
     .count {
@@ -24,28 +24,20 @@
     .animate-return {
       transform: scale(1) rotate(0deg);
     }
-
-    /* 로그인 버튼 위치 및 기본 스타일 */
-    .login-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 10px 16px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 14px;
-      cursor: pointer;
-      z-index: 9999;
-    }
-
-    .login-btn:hover {
-      background-color: #0056b3;
-    }
   </style>
 </head>
 <body>
+  <!-- 로그인 버튼 -->
+  <div class="login-btn-wrapper">
+    <button class="login-btn">
+      <span class="login-btn-inner">로그인</span>
+      <div class="tooltip">
+        <div>로그인 하러 가기</div>
+        <div class="tooltip-arrow"></div>
+      </div>
+    </button>
+  </div>
+
   <div class="container">
     <h1>Welcome to Cent By Cent!</h1>
     <p><em>100 cents at a time, change the world.</em></p>
@@ -55,10 +47,6 @@
     <div id="counter" class="count">0</div>
   </div>
 
-  <!-- 로그인 버튼 추가 -->
-  <button class="login-btn">로그인</button>
-
-  <!-- 로컬 경로로 파일 지정 (웹 서버 환경에서) -->
   <audio id="clickSound" src="sounds/pop.mp3" preload="auto"></audio>
 
   <script>
