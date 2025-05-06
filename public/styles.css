@@ -1,97 +1,63 @@
-/* 전체 레이아웃 */
-body {
-  font-family: 'Helvetica Neue', sans-serif;
-  background-color: #f1f9f3; /* 연한 연두 배경 */
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  text-align: center;
-}
+/* 스타일 정의 (각 버튼마다 개별적으로 스타일 추가) */
 
-/* 중앙 정렬된 컨테이너 */
-.container {
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: none; /* 배경 없음 */
-  box-shadow: none; /* 그림자 없음 */
-}
-
-/* 제목 스타일 */
-h1 {
-  color: #2e4632; /* 짙은 올리브 */
-  font-size: 36px;
-  margin-bottom: 20px;
-  font-weight: 700;
-}
-
-/* 버튼 스타일 */
-button {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  font-size: 22px;
-  color: #fff;
-  background-color: #84c69b; /* 연한 녹색 */
+/* 첫 번째 버튼: 회원가입 */
+button:nth-of-type(1) {
+  background-color: #3498db; /* 파란색 */
+  color: white;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  box-shadow: 0 6px 14px rgba(132, 198, 155, 0.3); /* 은은한 그림자 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #6ab284;
-  transform: scale(1.06);
+button:nth-of-type(1):hover {
+  background-color: #2980b9; /* 어두운 파란색 */
+}
+
+/* 두 번째 버튼: 로그인 */
+button:nth-of-type(2) {
+  background-color: #2ecc71; /* 초록색 */
+  color: white;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button:nth-of-type(2):hover {
+  background-color: #27ae60; /* 어두운 초록색 */
+}
+
+/* 세 번째 버튼: 기부하기 */
+button:nth-of-type(3) {
+  background-color: #e74c3c; /* 빨간색 */
+  color: white;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button:nth-of-type(3):hover {
+  background-color: #c0392b; /* 어두운 빨간색 */
+}
+
+/* 공통 버튼 스타일 */
+button {
+  margin: 10px 0; /* 버튼 간 간격 */
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 button:active {
-  background-color: #589b71;
-  transform: scale(0.95);
+  transform: scale(0.98); /* 클릭 시 크기 축소 */
 }
-
-/* 클릭 횟수 표시 */
-#counter {
-  font-size: 28px;
-  color: #3b573f;
-  margin-top: 25px;
-  font-weight: 600;
-  animation: fadeIn 0.4s ease-in-out;
-}
-
-/* 등장 애니메이션 */
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.login-btn {
-  all: unset; /* 기존 button 스타일 초기화 */
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  padding: 6px 14px;
-  font-size: 14px;
-  background-color: #000;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: 'Helvetica Neue', sans-serif;
-}
-
-
-

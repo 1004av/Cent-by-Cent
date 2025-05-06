@@ -1,3 +1,4 @@
+<!-- index.ejs (수정된 부분 없음) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,42 +8,25 @@
   
   <link rel="icon" href="/images/favicon.png" type="image/x-icon" />
   <link rel="stylesheet" href="/styles.css" />
-
-  <style>
-    .count {
-      font-size: 5rem;
-      font-weight: bold;
-      color: #333;
-      display: inline-block;
-      transition: transform 0.1s ease-in-out;
-    }
-
-    .animate-instant {
-      transform: scale(1.9) rotate(30deg);
-    }
-
-    .animate-return {
-      transform: scale(1) rotate(0deg);
-    }
-  </style>
 </head>
 <body>
-  <!-- 로그인 버튼 -->
-  <button class="login-btn">로그인</button>
-
   <div class="container">
     <h1>Welcome to Cent By Cent!</h1>
     <p><em>100 cents at a time, change the world.</em></p>
 
-    <button id="donateButton">Donate Now</button>
+    <!-- 버튼 추가 -->
+    <button>회원가입</button>
+    <button>로그인</button>
+    <button>기부하기</button>
+    
     <div id="counter" class="count">0</div>
   </div>
 
   <audio id="clickSound" src="sounds/pop.mp3" preload="auto"></audio>
 
   <script>
+    // 기부 버튼 클릭 이벤트
     let clickCount = 0;
-
     const button = document.getElementById('donateButton');
     const counter = document.getElementById('counter');
     const sound = document.getElementById('clickSound');
@@ -51,35 +35,28 @@
       sound.currentTime = 0;
       sound.play();
 
-      button.style.transform = 'scale(1.2)';
-      button.style.boxShadow = '0 0 20px #00c6ff';
-
       clickCount++;
       counter.innerText = clickCount;
-
+      
+      // 애니메이션
       counter.classList.remove('animate-instant', 'animate-return');
       void counter.offsetWidth;
       counter.classList.add('animate-instant');
-
+      
       setTimeout(() => {
         counter.classList.add('animate-return');
       }, 50);
-
+      
       setTimeout(() => {
         counter.classList.remove('animate-instant');
         counter.classList.remove('animate-return');
       }, 150);
-
+      
       try {
         await fetch('/donate', { method: 'POST' });
       } catch (err) {
         console.error('Donation failed:', err);
       }
-
-      setTimeout(() => {
-        button.style.transform = 'scale(1)';
-        button.style.boxShadow = '';
-      }, 1500);
     });
   </script>
 </body>
