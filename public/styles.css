@@ -57,7 +57,7 @@ h1 {
   background-color: #84c69b; /* 연두색 */
   color: #fff;
   border: none;
-  border-radius: 10px; /* 둥근 직사각형 */
+  border-radius: 50%; /* 둥근 직사각형 */
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
