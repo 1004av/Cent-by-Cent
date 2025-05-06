@@ -16,7 +16,8 @@
     <h1>Welcome to Cent By Cent!</h1>
     <p><em>100 cents at a time, change the world.</em></p>
 
-    <button id="donateButton">Donate Now</button>
+    <!-- 기부 버튼 -->
+    <button id="donateButton">후원하기</button>
     <div id="counter" class="count">0</div>
   </div>
 
@@ -25,16 +26,16 @@
   <script>
     let clickCount = 0;
 
-    const button = document.getElementById('donateButton');
+    const donateButton = document.getElementById('donateButton');
     const counter = document.getElementById('counter');
     const sound = document.getElementById('clickSound');
 
-    button.addEventListener('click', async function () {
+    donateButton.addEventListener('click', async function () {
       sound.currentTime = 0;
       sound.play();
 
-      button.style.transform = 'scale(1.2)';
-      button.style.boxShadow = '0 0 20px #00c6ff';
+      donateButton.style.transform = 'scale(1.2)';
+      donateButton.style.boxShadow = '0 0 20px #00c6ff';
 
       clickCount++;
       counter.innerText = clickCount;
@@ -59,8 +60,8 @@
       }
 
       setTimeout(() => {
-        button.style.transform = 'scale(1)';
-        button.style.boxShadow = '';
+        donateButton.style.transform = 'scale(1)';
+        donateButton.style.boxShadow = '';
       }, 1500);
     });
   </script>
