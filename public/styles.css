@@ -80,18 +80,19 @@ button:active {
 
 .login-btn {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px 16px;
-  background-color: #007BFF;
-  color: white;
+  top: 16px;
+  right: 16px;
+  padding: 6px 12px;
+  background-color: rgba(50, 50, 50, 0.85);
+  color: #fff;
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 4px;
+  font-size: 13px;
   cursor: pointer;
   z-index: 9999;
+  transition: background-color 0.2s;
 }
 
 .login-btn:hover {
-  background-color: #0056b3;
+  background-color: rgba(30, 30, 30, 0.95);
 }
