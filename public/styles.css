@@ -50,32 +50,37 @@ h1 {
   background-color: #444; /* 호버 시 어두운 검은색 */
 }
 
-/* 기부 버튼 스타일 */
+/* 기부 버튼 원형 스타일 */
 #donateButton {
-  width: 180px;
-  height: 60px;
-  background-color: #84c69b; /* 연두색 */
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;  /* 원형으로 만들기 */
+  font-size: 22px;
   color: #fff;
+  background-color: #84c69b;
   border: none;
-  border-radius: 50%; /* 둥근 직사각형 */
-  font-size: 18px;
-  font-weight: bold;
   cursor: pointer;
-  display: flex;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(132, 198, 155, 0.3);
+  display: inline-flex;  /* inline-flex로 변경 */
   justify-content: center;
   align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin: 0 auto; /* 가운데 정렬 */
+  position: relative;  /* 버튼 내부 요소 정렬을 위해 상대 위치 설정 */
 }
 
+/* 호버 효과 */
 #donateButton:hover {
-  transform: scale(1.1); /* 호버 시 크기 증가 */
-  box-shadow: 0 0 15px rgba(132, 198, 155, 0.4);
+  background-color: #6ab284;
+  transform: scale(1.06);
 }
 
+/* 클릭 효과 */
 #donateButton:active {
-  transform: scale(1); /* 클릭 시 크기 복원 */
+  background-color: #589b71;
+  transform: scale(0.95);
 }
+
 
 /* 클릭 횟수 표시 */
 #counter {
