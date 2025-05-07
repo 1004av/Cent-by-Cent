@@ -23,12 +23,14 @@ app.post('/donate', (req, res) => {
   res.send(`감사합니다! ${donationAmount}달러가 기부되었습니다.`);
 });
 
+//로그인/회원가입 화면
+app.get('/login', (req, res) => {
+  res.render('login'); // login.ejs 파일을 렌더링
+});
+
 // 서버 시작
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-//로그인/회원가입 화면
-app.get('/login', (req, res) => {
-  res.render('login'); // login.ejs 파일을 렌더링
-});
+
