@@ -122,3 +122,16 @@ h1 {
     transform: translateY(0);
   }
 }
+
+/* 숫자 카운트 애니메이션 */
+#counter.count {
+  transition: transform 0.1s ease-in-out;
+}
+
+#counter.animate-instant {
+  transform: scale(1.9) rotate(30deg);
+}
+
+#counter.animate-return {
+  transform: scale(1) rotate(0deg);
+}
