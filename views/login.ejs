@@ -3,92 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login | Cent By Cent</title>
+  <title>Login / Sign Up</title>
   <link rel="stylesheet" href="/styles.css" />
   <style>
     body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #f0f8f5;
-      margin: 0;
-      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: #f4f4f4;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
 
-    .card {
+    .auth-container {
       background: white;
       padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       width: 350px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
-    .card h2 {
+    h2 {
+      text-align: center;
       margin-bottom: 20px;
-      color: #2e4632;
     }
 
     input {
+      display: block;
       width: 100%;
+      margin: 10px 0;
       padding: 12px;
-      margin: 8px 0;
+      border-radius: 5px;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
     }
 
-    .btn {
+    button {
       width: 100%;
       padding: 12px;
-      margin-top: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #84c69b;
+      background-color: #00c6ff;
       color: white;
+      border: none;
+      border-radius: 5px;
       font-size: 16px;
-      font-weight: bold;
       cursor: pointer;
+      margin-top: 10px;
     }
 
-    .btn:hover {
-      background-color: #6ab284;
-    }
-
-    .switch {
-      margin-top: 20px;
-      font-size: 14px;
+    .toggle {
+      text-align: center;
+      margin-top: 15px;
       color: #555;
       cursor: pointer;
-    }
-
-    .switch:hover {
       text-decoration: underline;
-    }
-
-    .message {
-      margin-top: 12px;
-      color: #d33;
-      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <div class="card">
+  <div class="auth-container">
     <h2 id="formTitle">Log In</h2>
-
     <input type="email" id="email" placeholder="Email" />
     <input type="password" id="password" placeholder="Password" />
+    <input type="text" id="fullName" placeholder="Full Name" style="display: none;" />
+    <input type="text" id="bankName" placeholder="Bank Name" style="display: none;" />
+    <input type="text" id="accountNumber" placeholder="Account Number" style="display: none;" />
 
-    <button class="btn" id="authButton">Log In</button>
-
-    <div class="switch" id="toggleForm">Don't have an account? Sign Up</div>
-
-    <div class="message" id="messageArea"></div>
+    <button id="authButton">Log In</button>
+    <div id="toggleForm" class="toggle">Don't have an account? Sign Up</div>
   </div>
 
   <script>
@@ -98,13 +78,38 @@
     const authButton = document.getElementById('authButton');
     const toggleForm = document.getElementById('toggleForm');
 
+    const fullName = document.getElementById('fullName');
+    const bankName = document.getElementById('bankName');
+    const accountNumber = document.getElementById('accountNumber');
+
     toggleForm.addEventListener('click', () => {
       isLogin = !isLogin;
+
       formTitle.innerText = isLogin ? 'Log In' : 'Sign Up';
       authButton.innerText = isLogin ? 'Log In' : 'Sign Up';
       toggleForm.innerText = isLogin
         ? "Don't have an account? Sign Up"
         : "Already have an account? Log In";
+
+      fullName.style.display = isLogin ? 'none' : 'block';
+      bankName.style.display = isLogin ? 'none' : 'block';
+      accountNumber.style.display = isLogin ? 'none' : 'block';
+    });
+
+    authButton.addEventListener('click', () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const name = fullName.value;
+      const bank = bankName.value;
+      const account = accountNumber.value;
+
+      if (isLogin) {
+        console.log('Logging in with:', email, password);
+        // TODO: Firebase login logic here
+      } else {
+        console.log('Signing up with:', email, password, name, bank, account);
+        // TODO: Firebase signup logic here
+      }
     });
   </script>
 </body>
