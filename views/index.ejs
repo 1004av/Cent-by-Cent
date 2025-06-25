@@ -2,65 +2,65 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>Pinterest Clone</title>
+  <title>Pinterest 스타일 SNS</title>
   <style>
-    body {
-      background: #fafafa;
-      font-family: Arial, sans-serif;
-    }
-    .container {
-      width: 90%;
-      margin: 40px auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      min-height: 180px;
-      justify-content: center;
-      align-items: center;
-      padding: 24px 12px;
-      transition: box-shadow 0.2s;
-    }
-    .card:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    }
-    .card .fake-img {
-      width: 100%;
-      height: 120px;
-      background: linear-gradient(135deg, #e0e0e0 60%, #cfcfcf 100%);
-      border-radius: 12px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #aaa;
-      font-size: 1.2em;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-    .card .desc {
-      text-align: center;
-      color: #333;
-      font-size: 1em;
-    }
+    body { background: #fafafa; font-family: Arial, sans-serif; }
+    .container { width: 90%; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+    .card { background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); overflow: hidden; }
+    .card img { width: 100%; display: block; object-fit: cover; }
+    .card .desc { padding: 12px 16px; }
+    .actions { display: flex; gap: 12px; margin: 8px 0 0 12px; }
+    form.inline { display:inline; }
+    .comment { margin-left: 20px; color: #444; }
+    .loginbox { margin: 20px 0; }
   </style>
 </head>
 <body>
-  <h1 style="text-align:center;">Pinterest 스타일 데모</h1>
+  <h1 style="text-align:center;">Pinterest 스타일 SNS</h1>
+
+  <% if (!user) { %>
+    <div class="loginbox">
+      <form action="/login" method="POST" style="display:inline;">
+        <input name="username" placeholder="아이디" required>
+        <input name="password" type="password" placeholder="비밀번호" required>
+        <button type="submit">로그인</button>
+      </form>
+      <form action="/register" method="POST" style="display:inline;">
+        <input name="username" placeholder="아이디" required>
+        <input name="password" type="password" placeholder="비밀번호" required>
+        <button type="submit">회원가입</button>
+      </form>
+    </div>
+  <% } else { %>
+    <p>안녕하세요, <%= user.username %>님! <a href="/logout">로그아웃</a></p>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" required>
+      <input name="description" placeholder="설명" required>
+      <button type="submit">이미지 업로드</button>
+    </form>
+  <% } %>
+
   <div class="container">
-    <% for(let i=1; i<=12; i++) { %>
+    <% posts.slice().reverse().forEach(function(post) { %>
       <div class="card">
-        <div class="fake-img">NO IMAGE</div>
-        <div class="desc">카드 <%= i %> 설명</div>
+        <img src="<%= post.imageUrl %>" alt="image">
+        <div class="desc"><%= post.description %> <small>by <%= post.author %></small></div>
+        <div class="actions">
+          <form class="inline" action="/like/<%= post.id %>" method="POST">
+            <button type="submit">♥ <%= post.likes.length %></button>
+          </form>
+          <form class="inline" action="/comment/<%= post.id %>" method="POST">
+            <input name="comment" placeholder="댓글" required>
+            <button type="submit">댓글</button>
+          </form>
+        </div>
+        <div>
+          <% comments.filter(c=>c.postId===post.id).forEach(function(c){ %>
+            <div class="comment"><b><%= c.user %>:</b> <%= c.text %></div>
+          <% }); %>
+        </div>
       </div>
-    <% } %>
+    <% }); %>
   </div>
 </body>
 </html>
