@@ -1,66 +1,118 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>Pinterest 스타일 SNS</title>
-  <style>
-    body { background: #fafafa; font-family: Arial, sans-serif; }
-    .container { width: 90%; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-    .card { background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); overflow: hidden; }
-    .card img { width: 100%; display: block; object-fit: cover; }
-    .card .desc { padding: 12px 16px; }
-    .actions { display: flex; gap: 12px; margin: 8px 0 0 12px; }
-    form.inline { display:inline; }
-    .comment { margin-left: 20px; color: #444; }
-    .loginbox { margin: 20px 0; }
-  </style>
-</head>
-<body>
-  <h1 style="text-align:center;">Pinterest 스타일 SNS</h1>
 
-  <% if (!user) { %>
-    <div class="loginbox">
-      <form action="/login" method="POST" style="display:inline;">
+  <!DOCTYPE html>
+  <html lang="ko"><head>
+    <meta charset="UTF-8"><title>Pinterest SNS</title>
+    <style>
+      body { background: #fafafa; font-family: Arial; }
+      .container { width: 90%; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+      .card { background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); overflow: hidden; }
+      .card img { width: 100%; display: block; object-fit: cover; }
+      .card .desc { padding: 12px 16px; }
+      .actions { display: flex; gap: 12px; margin: 8px 0 0 12px; }
+      form.inline { display:inline; }
+      .comment { margin-left: 20px; color: #444; }
+    </style>
+  </head>
+  <body>
+    <h1>Pinterest SNS</h1>
+    <% if (!user) { %>
+      <form action="/login" method="POST">
         <input name="username" placeholder="아이디" required>
         <input name="password" type="password" placeholder="비밀번호" required>
         <button type="submit">로그인</button>
       </form>
-      <form action="/register" method="POST" style="display:inline;">
+      <form action="/register" method="POST">
         <input name="username" placeholder="아이디" required>
         <input name="password" type="password" placeholder="비밀번호" required>
         <button type="submit">회원가입</button>
       </form>
+    <% } else { %>
+      <p>안녕하세요, <%= user.username %>님! <a href="/logout">로그아웃</a></p>
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <input name="description" placeholder="설명" required>
+        <button type="submit">업로드</button>
+      </form>
+    <% } %>
+    <div class="container">
+      <% posts.slice().reverse().forEach(function(post) { %>
+        <div class="card">
+          <img src="<%= post.imageUrl %>" alt="image">
+          <div class="desc"><%= post.description %> <small>by <%= post.author %></small></div>
+          <div class="actions">
+            <form class="inline" action="/like/<%= post.id %>" method="POST">
+              <button type="submit">♥ <%= post.likes.length %></button>
+            </form>
+            <form class="inline" action="/comment/<%= post.id %>" method="POST">
+              <input name="comment" placeholder="댓글" required>
+              <button type="submit">댓글</button>
+            </form>
+          </div>
+          <div>
+            <% comments.filter(c=>c.postId===post.id).forEach(function(c){ %>
+              <div class="comment"><b><%= c.user %>:</b> <%= c.text %></div>
+            <% }); %>
+          </div>
+        </div>
+      <% }); %>
     </div>
-  <% } else { %>
-    <p>안녕하세요, <%= user.username %>님! <a href="/logout">로그아웃</a></p>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-      <input type="file" name="image" required>
-      <input name="description" placeholder="설명" required>
-      <button type="submit">이미지 업로드</button>
-    </form>
-  <% } %>
+  </body>
+  </html>
+  `;
+  // EJS 치환
+  html = html.replace(/<%=(.*?)%>/g, (_, code) => eval(code));
+  html = html.replace(/<%([\s\S]+?)%>/g, (_, code) => { let result = ''; eval(code); return result; });
+  return callback(null, html);
+});
 
-  <div class="container">
-    <% posts.slice().reverse().forEach(function(post) { %>
-      <div class="card">
-        <img src="<%= post.imageUrl %>" alt="image">
-        <div class="desc"><%= post.description %> <small>by <%= post.author %></small></div>
-        <div class="actions">
-          <form class="inline" action="/like/<%= post.id %>" method="POST">
-            <button type="submit">♥ <%= post.likes.length %></button>
-          </form>
-          <form class="inline" action="/comment/<%= post.id %>" method="POST">
-            <input name="comment" placeholder="댓글" required>
-            <button type="submit">댓글</button>
-          </form>
-        </div>
-        <div>
-          <% comments.filter(c=>c.postId===post.id).forEach(function(c){ %>
-            <div class="comment"><b><%= c.user %>:</b> <%= c.text %></div>
-          <% }); %>
-        </div>
-      </div>
-    <% }); %>
-  </div>
-</body>
-</html>
+// 라우트
+app.get('/', (req, res) => {
+  res.render('ignored.ejs', { user: req.session.user, posts, comments });
+});
+
+app.post('/register', (req, res) => {
+  const { username, password } = req.body;
+  if (users.find(u => u.username === username)) return res.send('이미 존재하는 아이디');
+  users.push({ username, password });
+  req.session.user = { username };
+  res.redirect('/');
+});
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find(u => u.username === username && u.password === password);
+  if (!user) return res.send('로그인 실패');
+  req.session.user = { username };
+  res.redirect('/');
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => res.redirect('/'));
+});
+
+app.post('/upload', upload.single('image'), (req, res) => {
+  if (!req.session.user) return res.redirect('/');
+  posts.push({
+    id: Date.now().toString(),
+    imageUrl: '/uploads/' + req.file.filename,
+    description: req.body.description,
+    author: req.session.user.username,
+    likes: []
+  });
+  res.redirect('/');
+});
+
+app.post('/like/:id', (req, res) => {
+  if (!req.session.user) return res.redirect('/');
+  const post = posts.find(p => p.id === req.params.id);
+  if (post && !post.likes.includes(req.session.user.username)) post.likes.push(req.session.user.username);
+  res.redirect('/');
+});
+
+app.post('/comment/:id', (req, res) => {
+  if (!req.session.user) return res.redirect('/');
+  comments.push({ postId: req.params.id, user: req.session.user.username, text: req.body.comment });
+  res.redirect('/');
+});
+
+app.listen(3000, () => console.log('http://localhost:3000'));
