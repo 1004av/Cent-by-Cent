@@ -33,4 +33,54 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
+// 라우트
+app.get('/', (req, res) => {
+  res.render('ignored.ejs', { user: req.session.user, posts, comments });
+});
 
+app.post('/register', (req, res) => {
+  const { username, password } = req.body;
+  if (users.find(u => u.username === username)) return res.send('이미 존재하는 아이디');
+  users.push({ username, password });
+  req.session.user = { username };
+  res.redirect('/');
+});
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find(u => u.username === username && u.password === password);
+  if (!user) return res.send('로그인 실패');
+  req.session.user = { username };
+  res.redirect('/');
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => res.redirect('/'));
+});
+
+app.post('/upload', upload.single('image'), (req, res) => {
+  if (!req.session.user) return res.redirect('/');
+  posts.push({
+    id: Date.now().toString(),
+    imageUrl: '/uploads/' + req.file.filename,
+    description: req.body.description,
+    author: req.session.user.username,
+    likes: []
+  });
+  res.redirect('/');
+});
+
+app.post('/like/:id', (req, res) => {
+  if (!req.session.user) return res.redirect('/');
+  const post = posts.find(p => p.id === req.params.id);
+  if (post && !post.likes.includes(req.session.user.username)) post.likes.push(req.session.user.username);
+  res.redirect('/');
+});
+
+app.post('/comment/:id', (req, res) => {
+  if (!req.session.user) return res.redirect('/');
+  comments.push({ postId: req.params.id, user: req.session.user.username, text: req.body.comment });
+  res.redirect('/');
+});
+
+app.listen(3000, () => console.log('http://localhost:3000'));
